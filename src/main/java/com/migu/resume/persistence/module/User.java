@@ -1,7 +1,10 @@
 package com.migu.resume.persistence.module;
 
-public class User {
-    private Integer id;
+
+public class User implements java.io.Serializable{
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
 
     private String userName;
 

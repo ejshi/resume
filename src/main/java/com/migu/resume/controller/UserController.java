@@ -14,10 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.SqlUtil;
 import com.migu.resume.persistence.module.User;
 import com.migu.resume.persistence.module.UserExample;
 import com.migu.resume.service.IUserService;

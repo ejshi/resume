@@ -13,19 +13,11 @@ import com.migu.resume.persistence.module.User;
 import com.migu.resume.service.IUserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)     //表示继承了SpringJUnit4ClassRunner类  
-@ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})  
+@ContextConfiguration(locations = {"classpath:spring.xml"})  
 public class TestMyBatis {
     private static Logger logger = Logger.getLogger(TestMyBatis.class);  
     @Resource  
     private IUserService userService = null;  
-  
-//  private ApplicationContext ac = null;  
-//  @Before  
-//  public void before() { 
-//	  ac = new ClassPathXmlApplicationContext(new String[]{"classpath:spring-mvc.xml"
-//				,"classpath:spring-mybatis.xml"});
-//      userService = (IUserService) ac.getBean("userService");  
-//  } 
     
 	@Test  
     public void test1() {  
