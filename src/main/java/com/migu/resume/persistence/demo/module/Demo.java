@@ -1,7 +1,7 @@
-package com.migu.resume.persistence.module;
+package com.migu.resume.persistence.demo.module;
 
 
-public class User implements java.io.Serializable{
+public class Demo implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;

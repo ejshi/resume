@@ -1,16 +1,18 @@
 package com.migu.resume.vo;
 
 import javax.validation.constraints.Max;
+
 /**
- * 请求参数
+ * 测试用例
  * <p>Company: richinfo</p>
  * @author: jshi
- * @date: 2016年9月1日 下午4:42:34
+ * @date: 2016年9月5日 下午5:30:46
  * @version: V1.0
  */
-public class UserRequest {
+public class DemoRequest {
 	private String name;
 	private String age;
+	
 	@Max(value=3,message="{demo.id.maxvalue}")
 	private int sex;
 	public String getName() {
@@ -32,3 +34,4 @@ public class UserRequest {
 		this.sex = sex;
 	}
 }
+

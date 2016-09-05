@@ -40,14 +40,14 @@
         <property name="dataSource" ref="dataSource" />  
         <property name="configLocation"  value="classpath:mybatis-config.xml"></property>
         <!-- 自动扫描mapping.xml文件 -->
-        <property name="mapperLocations" value="classpath:com/migu/resume/persistence/dao/mapping/*.xml"></property>
+        <property name="mapperLocations" value="classpath:com/migu/resume/persistence/**/xml/*.xml"></property>
         <!-- 使用别名 -->
         <!--<property name="typeAliasesPackage" value="com.migu.resume.persistence.module"></property>-->
      </bean>  
   
     <!-- DAO接口所在包名，Spring会自动查找其下的类 -->  
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
-        <property name="basePackage" value="com.migu.resume.persistence.dao" />  
+        <property name="basePackage" value="com.migu.resume.persistence" />  
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>  
     </bean>  
   
