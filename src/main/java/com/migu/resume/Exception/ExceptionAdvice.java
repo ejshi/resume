@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
@@ -32,7 +33,26 @@ import com.migu.resume.vo.RemoteResponse;
 public class ExceptionAdvice {
 	
 	private static Logger logger = Logger.getLogger(ExceptionAdvice.class);
-	
+	/**
+	 * 用户不具有该权限
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(UnauthorizedException.class)
+    public String handleUnauthorizedException(UnauthorizedException e) {
+        logger.info("用户不具有该权限");
+		return "error/refuse";
+    }
+	/**
+     * 自定义异常信息
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(CustomException.class)
+    @ResponseBody
+    public RemoteResponse handleMethodCustomException(CustomException ex) {
+        return new RemoteResponse(0, ex.getMessage());
+    }
 	/**
      * 数据校验失败
      * @param ex
@@ -134,7 +154,7 @@ public class ExceptionAdvice {
         logger.error("上传文件过大，上传失败，最大只能上传2M", e);
         return new RemoteResponse(0);
     }
-
+    
     /**
      * 500 - Internal Server Error
      */

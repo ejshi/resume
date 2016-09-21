@@ -7,5 +7,5 @@ import com.migu.resume.persistence.demo.module.DemoExample;
 
 public interface IDemoService {
 	public Demo getDemoById(int demoId);
-	 public List<Demo> selectByExample(DemoExample example);
+	public List<Demo> selectByExample(DemoExample example);
 }

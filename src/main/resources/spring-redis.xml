@@ -30,7 +30,7 @@
 	    <constructor-arg index="1" value="${redis.host}" name="host" type="java.lang.String"/>
 	</bean>
 	<!-- redis 的缓存 -->
-	<bean id="jedisUtil" class="com.migu.resume.util.JedisUtil">
+	<bean id="jedisManager" class="com.migu.resume.util.cache.JedisManager">
 	    <property name="jedisPool" ref="jedisPool"/>
 	</bean>
 </beans>

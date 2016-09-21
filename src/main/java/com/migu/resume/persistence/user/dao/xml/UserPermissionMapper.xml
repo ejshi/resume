@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.migu.resume.persistence.user.dao.UserPermissionDao" >
+  <!-- 查询用户的权限信息 -->
+  <select id="selectPermissionsByUserId" parameterType="java.lang.Long" resultMap="com.migu.resume.persistence.permission.dao.PermissionDao.BaseResultMap">  
+	     select p.*
+	         from u_role_permission rp, u_permission p, u_user_role ur
+				where rp.pid = p.id and rp.rid = ur.rid and ur.uid = #{id,jdbcType=BIGINT}
+  </select>
+</mapper>

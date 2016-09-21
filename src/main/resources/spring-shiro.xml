@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<description>shiro_config</description>
+	
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+    	<property name="securityManager" ref="securityManager"/>
+    	<property name="loginUrl" value="/demo/login"/>
+    	<property name="unauthorizedUrl" value="/refuse.jsp"/>
+    	<property name="filterChainDefinitions" >
+			<value>
+				/index.jsp = anon
+				/logout = logout
+				/** = authc
+           </value>
+		</property>
+    </bean>
+    <!-- shiro安全管理器 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+    	<property name="realm" ref="customRealm"></property>
+    	<property name="cacheManager" ref="customShiroCacheManager"/>
+    </bean>
+    <!-- 自定义realm -->
+	<bean id="customRealm" class="com.migu.resume.shiro.CustomRealm">
+    	<property name="credentialsMatcher" ref="hashedCredentialsMatcher" /> 
+	</bean>
+	<!-- 散列加密 -->
+	<bean id="hashedCredentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">  
+        <property name="hashAlgorithmName" value="MD5" />  
+        <!-- 默认是true，此时用的是密码加密用的是Hex编码；false时用Base64编码 -->  
+        <property name="storedCredentialsHexEncoded" value="true" />
+        <!-- 散列一次 -->
+        <property name="hashIterations" value="1" />
+	</bean>
+	
+	<!-- cacheManager redis --> 
+	<!-- <bean id="customShiroCacheManager" class="org.crazycake.shiro.RedisCacheManager">
+		<property name="redisManager" ref="redisManager"/>
+	</bean>
+	
+	<bean id="redisManager" class="org.crazycake.shiro.RedisManager">
+	    <property name="host" value="127.0.0.1"/>
+	    <property name="port" value="6379"/>
+	    <property name="expire" value="60"/>
+	</bean> -->
+ 	<!-- 用户缓存 -->
+	<bean id="customShiroCacheManager" class="com.migu.resume.shiro.cache.impl.CustomShiroCacheManager">
+	    <property name="shiroCacheManager" ref="jedisShiroCacheManager"/>
+	</bean>
+	
+	<!-- shiro 缓存实现，对ShiroCacheManager，我是采用redis的实现 -->
+	<bean id="jedisShiroCacheManager" class="com.migu.resume.shiro.cache.impl.JedisShiroCacheManager">
+	    <property name="jedisManager" ref="jedisManager"/>
+	</bean>
+	<!-- Shiro生命周期处理器-->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	
+</beans>
+

@@ -1,6 +1,14 @@
-package com.migu.resume.util;
+package com.migu.resume.util.cache;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import org.apache.shiro.session.Session;
+
+import com.migu.resume.util.JSONUtils;
+import com.migu.resume.util.SerializeUtil;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -12,7 +20,7 @@ import redis.clients.jedis.exceptions.JedisConnectionException;
  * @date: 2016年9月5日 下午2:05:36
  * @version: V1.0
  */
-public class JedisUtil {
+public class JedisManager {
     private JedisPool jedisPool;
     
     private static final int DB_INDEX = 0;
