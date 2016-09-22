@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.apache.shiro.session.Session;
 
+import com.migu.resume.util.CollectionUtils;
 import com.migu.resume.util.JSONUtils;
 import com.migu.resume.util.SerializeUtil;
 
@@ -73,7 +74,35 @@ public class JedisManager {
         }
         return result;
     }
-
+    /**
+     * 获取制定key规则的的redis存储数据，如命令：keys session:*
+     * @param dbIndex
+     * @param pattern
+     * @return
+     * @throws Exception
+     */
+    public Collection<Session> AllSession(int dbIndex, byte[] pattern) throws Exception {
+        Jedis jedis = null;
+        Set<Session> resultSet = new HashSet<Session>();
+        try {
+            jedis = getJedis();
+            jedis.select(dbIndex);
+            Set<byte[]> keys = jedis.keys(pattern);
+            if(!CollectionUtils.isEmpty(keys)){
+            	for(byte[] key : keys){
+            		Object obj = SerializeUtil.deserialize(jedis.get(key));
+            		if(obj instanceof Session){
+            			resultSet.add((Session)obj);
+            		}
+            	}
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            returnResource(jedis);
+        }
+        return resultSet;
+    }
     public long deleteByKey(int dbIndex, byte[] key) throws Exception {
         Jedis jedis = null;
         long result = 0;
