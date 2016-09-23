@@ -1,5 +1,7 @@
 package com.migu.resume.shiro.session;
 
+import javax.annotation.Resource;
+
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.SessionListener;
 /**
@@ -10,6 +12,12 @@ import org.apache.shiro.session.SessionListener;
  * @version: V1.0
  */
 public class CustomSessionListener implements SessionListener{
+	
+	private ShiroSessionRepository shiroSessionRepository;
+	
+	public void setShiroSessionRepository(ShiroSessionRepository shiroSessionRepository) {
+		this.shiroSessionRepository = shiroSessionRepository;
+	}
 
 	@Override
 	public void onStart(Session session) {
@@ -27,6 +35,7 @@ public class CustomSessionListener implements SessionListener{
 	public void onExpiration(Session session) {
 		//删除session
 		System.out.println("session过期，删除session");
-		CustomShiroSesssionDao.sessionMap.remove(session.getId());
+		shiroSessionRepository.delete(session.getId());
+//		CustomShiroSesssionDao.sessionMap.remove(session.getId());
 	}
 }

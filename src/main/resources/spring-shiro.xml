@@ -90,11 +90,17 @@
 	
 	<!-- session DAO -->
 	<bean id="customShiroSessionDAO" class="com.migu.resume.shiro.session.CustomShiroSesssionDao">
+		<property name="shiroSessionRepository" ref="shiroSessionRepository"/>
 		<property name="sessionIdGenerator" ref="sessionIdGenerator"/>
+	</bean>
+	<!-- session CURD操作 -->
+	<bean id="shiroSessionRepository" class="com.migu.resume.shiro.session.impl.JedisShiroSessionRepository">
+		<property name="jedisManager" ref="jedisManager"/>
 	</bean>
 	
 	<!-- session listener -->
 	<bean id="customSessionListener" class="com.migu.resume.shiro.session.CustomSessionListener">
+		<property name="shiroSessionRepository" ref="shiroSessionRepository"/>
 	</bean>
 	
 	<!-- 会话验证调度器 -->

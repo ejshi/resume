@@ -24,9 +24,12 @@ public class JedisShiroSessionRepository implements ShiroSessionRepository {
     private static final int SESSION_VAL_TIME_SPAN = 18000;
     private static final int DB_INDEX = 0;
 	
-    @Resource
 	private JedisManager jedisManager;
 	
+	public void setJedisManager(JedisManager jedisManager) {
+		this.jedisManager = jedisManager;
+	}
+
 	@Override
 	public void create(Session session) {
 		if(null==session || null==session.getId()){
