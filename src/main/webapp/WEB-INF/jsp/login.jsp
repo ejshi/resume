@@ -10,7 +10,8 @@
 <form action="<%=request.getContextPath()%>/demo/login" method="POST">  
     姓名：<input type="text" name="username"/><br/>  
     密码：<input type="text" name="password"/><br/>  
-    <input type="submit" value="确认"/>  
+    <input type="submit" value="确认"/>
+    记住我<input type="checkbox" name="rememberMe">  
 </form> 
 
 <a href="<%=request.getContextPath()%>/logout">退出</a>

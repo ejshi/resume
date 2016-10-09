@@ -67,6 +67,7 @@ public class DemoContorller {
     @ResponseBody
     public Map<String,Object> query(HttpServletRequest request,HttpServletResponse response){
     	PageHelper.startPage(1, 10, true);//添加分页参数，只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（Select方法）方法会被分页。
+//    	PageHelper.startPage(1, 10, "id desc");//添加排序
     	DemoExample example = new DemoExample();
 		List<Demo> demoList= demoService.selectByExample(example );//分页
 		List<Demo> demoLists= demoService.selectByExample(example );//不分页，若需要分页在写一遍PageHelper.startPage方法
